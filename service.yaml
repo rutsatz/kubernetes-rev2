@@ -1,11 +1,28 @@
 apiVersion: v1
+# crio um serviço, que vai permitir que os pods se comuniquem.
 kind: Service
 metadata:
   name: my-service
 spec:
+  # eu coloco o nome do meu app que deve receber essas requisições,
+  # ou seja, esse service vai mandar todos os meus requests para os
+  # pods com o label app=nginx
   selector:
     app: nginx
   ports:
     - protocol: TCP
+      # qual a porta que esse meu serviço (que é como um proxy),
+      # vai escutar? Nesse caso, vai escutar na porta 80.
       port: 80
+      # Qual a porta de destino que ele deve encaminhar o tráfego lá nos pods?
+      # (se eu não especificar nada, ele usa o targetPort=port)
       targetPort: 80
+
+# kubectl apply -f service.yaml
+# kubectl get service
+
+# listar todos os pods que atendem esse serviço
+# kubectl get ep my-service
+
+# selecionar todos os pods que tem o label app=nginx
+# kubectl get pods -l app=nginx

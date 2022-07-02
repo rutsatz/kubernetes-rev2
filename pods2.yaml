@@ -1,10 +1,25 @@
+# Versão da api do kubernetes
 apiVersion: v1
 kind: Pod
 metadata:
+  # Nome do pod
   name: myapp-pod
+  # labels tem o objetivo de taguear recursos, com o objetivo de depois
+  # gerenciar esse recurso como um grupo. Por exemplo: eu quero gerenciar
+  # todos os pods que possuem a label app=myapp.
+  # Por isso, essa parametrização é extremamente importante.
   labels:
     app: myapp
 spec:
   containers:
+  # Nome do meu container
   - name: myapp
+    # imagem docker que ele vai usar.
     image: nginx
+
+# aplicar esse pod
+# kubectl apply -f pods2.yaml
+# kubectl get pods
+
+# deletar o pod
+# kubectl delete pod myapp-pod

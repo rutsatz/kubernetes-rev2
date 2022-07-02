@@ -3,6 +3,12 @@ kind: Service
 metadata:
   name: expo-nodeport
 spec:
+  # NodePort é usado para quando quero expor uma porta externamente.
+  # Ele escolhe uma porta aleatória para expor esse serviço.
+  # Ou seja, ele vai abrir uma porta naquele pod que está executando
+  # o serviço. É a forma mais bruta de expor um serviço do kubernetes.
+  # Ela pode ser usada para teste do ambiente, mas não deve ser usada
+  # em produção.
   type: NodePort
   selector:
     app: nginx
@@ -10,3 +16,6 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 80
+
+# kubectl apply -f service-nodeport.yaml
+# kubectl get services

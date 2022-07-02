@@ -1,14 +1,25 @@
 apiVersion: apps/v1
+# O deployment é um controlador, que controla a execução dos pods.
+# O principal objetivo é manter o estado desejado da minha aplicação.
+# Por exemplo: eu quero 3 pods do meu app node rodando.
+# Ele vai garantir que isso sempre ocorra, então se você deletar um pod,
+# ele vai subir um outro no lugar.
+# Então isso fornece um mecanismo de self-healing, ou auto correção.
 kind: Deployment
 metadata:
   name: nginx-deployment
   labels:
     app: nginx
 spec:
+  # quantos pods eu quero rodando
   replicas: 4
+  # estou dizendo que ele vai gerenciar todos os pods que possuem esse label
+  # app: nginx
   selector:
     matchLabels:
       app: nginx
+  # dizemos qual é o template do pod que vai ser implantado.
+  # então todos os pods que forem implantados, tem que ter a label app: nginx
   template:
     metadata:
       labels:
@@ -19,3 +30,6 @@ spec:
         image: nginx
         ports:
         - containerPort: 80
+
+# kubectl apply -f deployment.yaml
+# kubectl get pods
